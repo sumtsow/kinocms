@@ -54,7 +54,13 @@ $config = [
             ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
         ],
         ],
-        
+        'view' => [
+             'theme' => [
+                 'pathMap' => [
+                    '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-basic-app'
+                 ],
+             ],
+        ],
     ],
     'params' => $params,
 ];
