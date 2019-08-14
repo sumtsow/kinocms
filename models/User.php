@@ -5,22 +5,46 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use app\models\Order;
 
 class User extends ActiveRecord implements IdentityInterface
 {
     //public $id;
     //public $email;
     //public $password;
-    //public $authKey;
-    public $accessToken;
+    //public $auth_key;
+    public $access_token;
 
     public static function tableName()
     {
         return 'users';
     }
+    
+    /**
+     * 
+     * Unset hidden fields
+     */
+    public function fields()
+    {
+        $fields = parent::fields();
 
+        unset($fields['auth_key'], $fields['password'], $fields['access_token']);
+
+        return $fields;
+    }
+    
     /**
      * {@inheritdoc}
+     */    
+    public function extraFields()
+    {
+        return ['orders'];
+    }
+    
+    /**
+     * find User by id
+     * @param int $id
+     * @return static|null
      */
     public static function findIdentity($id)
     {
@@ -63,11 +87,19 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrders()
+    {
+        return $this->hasMany(Order::className(), ['user_id' => 'id']);
+    }
+    
+    /**
      * {@inheritdoc}
      */
-    public function validateAuthKey($authKey)
+    public function validateAuthKey($auth_key)
     {
-        return $this->auth_key === $authKey;
+        return $this->auth_key === $auth_key;
     }
 
         

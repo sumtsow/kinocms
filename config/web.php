@@ -25,6 +25,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'enableSession' => false,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -51,6 +52,13 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
         'rules' => [
+            ['class' => 'yii\rest\UrlRule', 'controller' => 'cinema'],           
+            ['class' => 'yii\rest\UrlRule', 'controller' => 'film'],
+            ['class' => 'yii\rest\UrlRule', 'controller' => 'hall'],
+            ['class' => 'yii\rest\UrlRule', 'controller' => 'order'],
+            ['class' => 'yii\rest\UrlRule', 'controller' => 'row'],
+            ['class' => 'yii\rest\UrlRule', 'controller' => 'show'],
+            ['class' => 'yii\rest\UrlRule', 'controller' => 'ticket'],
             ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
         ],
         ],

@@ -5,12 +5,13 @@ namespace app\controllers;
 use yii\rest\ActiveController;
 
 /**
- * UserController implements RESTfull API actions for User model.
+ * TicketController implements RESTfull API actions for Ticket model.
  */
-class UserController extends ActiveController
+class TicketController extends ActiveController
 {
      /**
      * {@inheritdoc}
      */
     public $modelClass = 'app\models\User';
 }
+
