@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use app\models\Order;
+use app\models\Ticket;
 
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -27,18 +27,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function fields()
     {
         $fields = parent::fields();
-
         unset($fields['auth_key'], $fields['password'], $fields['access_token']);
-
         return $fields;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */    
-    public function extraFields()
-    {
-        return ['orders'];
     }
     
     /**
@@ -89,9 +79,9 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOrders()
+    public function getTickets()
     {
-        return $this->hasMany(Order::className(), ['user_id' => 'id']);
+        return $this->hasMany(Ticket::className(), ['user_id' => 'id']);
     }
     
     /**

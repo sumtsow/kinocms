@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=kinocms',
+    'dsn' => 'mysql:host=localhost;dbname=kino',
     'username' => 'kinocms',
     'password' => 'kinocms',
     'charset' => 'utf8',
