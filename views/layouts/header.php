@@ -135,7 +135,7 @@ use yii\helpers\Html;
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <i class="fa fa-user text-red"></i> You changed your email
+                                        <i class="fa fa-user text-red"></i> You changed your username
                                     </a>
                                 </li>
                             </ul>
@@ -229,18 +229,22 @@ use yii\helpers\Html;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <img src="<?= $directoryAsset ?>/img/avatar.png" class="user-image" alt="User Image"/>
+                        <span class="hidden-xs"><?= (Yii::$app->user->isGuest) ? 'Guest' : Yii::$app->user->identity->email ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
+                            <img src="<?= $directoryAsset ?>/img/avatar.png" class="img-circle"
                                  alt="User Image"/>
 
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                <?php if(!Yii::$app->user->isGuest) : ?>
+                                <?= Yii::$app->user->identity->email ?>
+                                <small>Registerd User</small>
+                                <?php else : ?>
+                                Guest
+                                <?php endif; ?>
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -258,14 +262,23 @@ use yii\helpers\Html;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="#" class="btn btn-default btn-flat"><?= (Yii::$app->user->isGuest) ? 'Register' : 'Profile'; ?></a>
                             </div>
                             <div class="pull-right">
+                            <?php if(!Yii::$app->user->isGuest) : ?>
                                 <?= Html::a(
                                     'Sign out',
                                     ['/site/logout'],
                                     ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                ) ?>                            
+                            <?php else : ?>
+                                <?= Html::a(
+                                    'Sign in',
+                                    ['/site/login'],
+                                    ['data-method' => 'get', 'class' => 'btn btn-default btn-flat']
                                 ) ?>
+                            <?php endif; ?>                                
+
                             </div>
                         </li>
                     </ul>

@@ -15,7 +15,7 @@ class TicketController extends ActiveController
      * {@inheritdoc}
      */
     public $modelClass = 'app\models\Ticket';
-    
+
     public function actions() {
         $actions = parent::actions();
         unset($actions['index']);
@@ -23,13 +23,13 @@ class TicketController extends ActiveController
     }
     
     public function actionIndex(){
-    $activeData = new ActiveDataProvider([
-        'query' => Ticket::find(),
-        'pagination' => [
-            'PageSize' => \yii::$app->params['hallMaxSize'],
-        ],
-    ]);
-    return $activeData;
-}
+        $activeData = new ActiveDataProvider([
+            'query' => Ticket::find(),
+            'pagination' => [
+                'PageSize' => \yii::$app->params['hallMaxSize'],
+            ],
+        ]);
+        return $activeData;
+    }
 }
 

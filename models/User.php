@@ -77,6 +77,14 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getTickets()
