@@ -21,32 +21,32 @@ class Ticket extends ActiveRecord
     /**
      *  @var integer Ticket ID
      */
-    public $id;
+    private $id;
     
     /**
      *  @var integer Ticket Row
      */
-    public $row;
+    private $row;
     
     /**
      *  @var integer Ticket Place
      */
-    public $place;
+    private $place;
     
     /**
      * @var type  @var nubmer Ticket Cost
      */
-    public $cost;
+    private $cost;
     
     /**
      * @var type  @var string Ticket State can be equal to 'free', 'reserved' or 'saled'
      */
-    public $state;
+    private $state;
     
     /**
      *  @var datetime Reserved Ticket Expiration DayTime
      */
-    public $reservation_expiration;
+    private $reservation_expiration;
     
     /**
      * @return string
@@ -93,11 +93,11 @@ class Ticket extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            if (!$this->isNewRecord && $this->state === 'reserved') {
-                $this->reservation_expiration = date('Y-m-d H:i:s', time()+\yii::$app->params['reservationExpirationTime']);
+            if (!$this->isNewRecord && $this->__get('state') === 'reserved') {
+                $this->__set('reservation_expiration', date('Y-m-d H:i:s', time()+\yii::$app->params['reservationExpirationTime']));
             }
             else {
-                $this->reservation_expiration = null;
+                $this->__set('reservation_expiration', null);
             }
             return true;
         }
