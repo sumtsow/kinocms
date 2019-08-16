@@ -140,4 +140,13 @@ class SiteController extends \yii\web\Controller
             'model' => new Ticket(),
         ]);
     }
+
+    /**
+     * Redirect to Source GitHub Page
+     * @return mixed
+     */
+    public function actionSource()
+    {
+        return $this->redirect('https://github.com/sumtsow/kinocms');
+    }
 }

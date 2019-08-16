@@ -34,6 +34,7 @@
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'API Documentation', 'icon' => 'book', 'url' => ['/docs']],
+                    ['label' => 'Source', 'icon' => 'github', 'url' => ['/site/source']],
                     [
                         'label' => 'User',
                         'icon' => 'user',
