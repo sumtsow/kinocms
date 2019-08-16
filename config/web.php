@@ -51,10 +51,10 @@ $config = [
         
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
             'showScriptName' => false,
         'rules' => [
             ['class' => 'yii\rest\UrlRule', 'controller' => 'ticket'],
-            ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
         ],
         ],
         'view' => [

@@ -13,10 +13,24 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
+    /**
+     * @var type  @var string user email used as login
+     */
     public $email;
+    
+    /** 
+     * @var type @var stringuser password
+     */
     public $password;
+    
+    /**
+     * @var string  remember me flag
+     */
     public $rememberMe = true;
 
+    /**
+     *  @var string User model
+     */
     private $_user = false;
 
 

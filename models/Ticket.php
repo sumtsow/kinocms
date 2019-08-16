@@ -19,7 +19,37 @@ class Ticket extends ActiveRecord
 {
     
     /**
-     * {@inheritdoc}
+     *  @var integer Ticket ID
+     */
+    public $id;
+    
+    /**
+     *  @var integer Ticket Row
+     */
+    public $row;
+    
+    /**
+     *  @var integer Ticket Place
+     */
+    public $place;
+    
+    /**
+     * @var type  @var nubmer Ticket Cost
+     */
+    public $cost;
+    
+    /**
+     * @var type  @var string Ticket State can be equal to 'free', 'reserved' or 'saled'
+     */
+    public $state;
+    
+    /**
+     *  @var datetime Reserved Ticket Expiration DayTime
+     */
+    public $reservation_expiration;
+    
+    /**
+     * @return string
      */
     public static function tableName()
     {
@@ -27,7 +57,7 @@ class Ticket extends ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return array of Validator rules
      */
     public function rules()
     {
@@ -35,14 +65,14 @@ class Ticket extends ActiveRecord
             [['id', 'row', 'place', 'cost'], 'required'],
             [['id', 'row', 'place'], 'integer'],
             [['cost'], 'number'],
-            [['state'], 'string'],
+            [['state'],  'in', 'range' => ['free', 'reserved', 'saled']],
             [['reservation_expiration'], 'safe'],
             [['id'], 'unique'],
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @return array of String attribute labels
      */
     public function attributeLabels()
     {
@@ -54,5 +84,23 @@ class Ticket extends ActiveRecord
             'state' => 'State',
             'reservation_expiration' => 'Reservation Expiration',
         ];
+    }
+
+    /**
+     * @param boolean $insert flag
+     * @return boolean
+     */    
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if (!$this->isNewRecord && $this->state === 'reserved') {
+                $this->reservation_expiration = date('Y-m-d H:i:s', time()+\yii::$app->params['reservationExpirationTime']);
+            }
+            else {
+                $this->reservation_expiration = null;
+            }
+            return true;
+        }
+        return false;
     }
 }

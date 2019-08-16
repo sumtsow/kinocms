@@ -73,18 +73,18 @@ use yii\helpers\Html;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat"><?= (Yii::$app->user->isGuest) ? 'Register' : 'Profile'; ?></a>
+                                <a href="/user/create" class="btn btn-default btn-flat"><?= (Yii::$app->user->isGuest) ? 'Register' : 'Profile'; ?></a>
                             </div>
                             <div class="pull-right">
                             <?php if(!Yii::$app->user->isGuest) : ?>
                                 <?= Html::a(
-                                    'Sign out',
+                                    'Sign Out',
                                     ['/site/logout'],
                                     ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
                                 ) ?>                            
                             <?php else : ?>
                                 <?= Html::a(
-                                    'Sign in',
+                                    'Sign In',
                                     ['/site/login'],
                                     ['data-method' => 'get', 'class' => 'btn btn-default btn-flat']
                                 ) ?>

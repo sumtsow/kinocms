@@ -4,16 +4,20 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Ticket;
 
-class SiteController extends Controller
+/**
+ * SiteController implements main application actions.
+ */
+class SiteController extends \yii\web\Controller
 {
+    
     /**
-     * {@inheritdoc}
+     * @return array of Acces Control params
      */
     public function behaviors()
     {
@@ -39,7 +43,7 @@ class SiteController extends Controller
     }
 
     /**
-     * {@inheritdoc}
+     * @return array of actions
      */
     public function actions()
     {
@@ -56,8 +60,7 @@ class SiteController extends Controller
 
     /**
      * Displays homepage.
-     *
-     * @return string
+     * @return mixed
      */
     public function actionIndex()
     {
@@ -124,5 +127,17 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+    
+    
+    /**
+     * Displays REST API Test Page.
+     * @return mixed
+     */
+    public function actionTest()
+    {
+        return $this->render('test', [
+            'model' => new Ticket(),
+        ]);
     }
 }

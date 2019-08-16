@@ -9,7 +9,10 @@ $this->title = 'Avada Media Test Task';
     <div class="jumbotron">
         <h1>AdminLTE based Tickets CRUD Panel</h1>
 
-        <p><a class="btn btn-lg btn-success" href="/admin">Go to Admin Panel</a></p>
+        <p>
+            <a class="btn btn-sm btn-primary" href="/site/test">Go to REST API Test Page</a>
+            <a class="btn btn-sm btn-primary" href="/admin">Go to Admin Panel</a>
+        </p>
     </div>
 
 </div>

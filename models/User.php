@@ -5,30 +5,59 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use app\models\Ticket;
 
+/**
+ * This is the model class for table "Users".
+ *
+ * @property int $id
+ * @property string $email
+ * @property string $password
+ * @property string $accessToken
+ * @property string $authKey
+ */
 class User extends ActiveRecord implements IdentityInterface
 {
-    //public $id;
-    //public $email;
-    //public $password;
-    //public $auth_key;
-    public $access_token;
 
+    /**
+     *  password repeat for confirmation
+     */
+    public $password_repeat;
+    
+    /**
+     * @return string $tableName
+     */
     public static function tableName()
     {
         return 'users';
     }
-    
+
     /**
-     * 
-     * Unset hidden fields
+     * @return array of Validator rules
      */
-    public function fields()
+    public function rules()
     {
-        $fields = parent::fields();
-        unset($fields['auth_key'], $fields['password'], $fields['access_token']);
-        return $fields;
+        return [
+            [['email', 'password', 'password_repeat'], 'required'],
+            [['email', 'password', 'password_repeat'], 'string', 'max' => 256],
+            ['password', 'compare'],
+        ];
+    }
+        
+    /**
+     * @param boolean $insert flag
+     * @return boolean
+     */    
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->generateAuthKey();
+                $this->generateAccessToken();
+                $this->hashPassword($this->password);
+            }
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -42,7 +71,9 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param $token User access token 
+     * @param $type of  User accesstoken
+     * @return User
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
@@ -61,7 +92,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return integer
      */
     public function getId()
     {
@@ -69,7 +100,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return authKey
      */
     public function getAuthKey()
     {
@@ -83,24 +114,23 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->email;
     }
-    
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTickets()
-    {
-        return $this->hasMany(Ticket::className(), ['user_id' => 'id']);
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function validateAuthKey($auth_key)
-    {
-        return $this->auth_key === $auth_key;
-    }
-
         
+    /**
+     * @return authKey
+     */
+    public function generateAuthKey()
+    {
+        return $this->__set('auth_key', \Yii::$app->security->generateRandomString());
+    }    
+    
+    /**
+     * @return accessToken
+     */
+    public function generateAccessToken()
+    {
+        return $this->__set('access_token', \Yii::$app->security->generateRandomString());
+    }
+    
     /**
      * Hash password
      *
@@ -111,6 +141,15 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password = Yii::$app->getSecurity()->generatePasswordHash($password);
         return true;
+    }
+    
+    /**
+     * @param integer $auth_key
+     * @return boolean $isValid
+     */
+    public function validateAuthKey($auth_key)
+    {
+        return $this->auth_key === $auth_key;
     }
     
     /**

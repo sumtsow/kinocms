@@ -5,19 +5,18 @@ namespace app\controllers;
 use Yii;
 use app\models\Ticket;
 use app\models\TicketSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
- * TicketController implements the CRUD actions for Ticket model.
+ * AdminController implements the CRUD actions for Ticket model.
  */
-class AdminController extends Controller
+class AdminController extends \yii\web\Controller
 {
     
     /**
-     * {@inheritdoc}
+     * @return array of Acces Control params
      */
     public function behaviors()
     {

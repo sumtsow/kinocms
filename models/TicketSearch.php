@@ -24,7 +24,7 @@ class TicketSearch extends Ticket
     }
 
     /**
-     * {@inheritdoc}
+     * @return array of Scenarios
      */
     public function scenarios()
     {
