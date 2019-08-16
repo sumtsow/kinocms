@@ -1,3 +1,3 @@
 <p align="center">
-    <a href="https://github.com/sumtsow/kinocms/blob/master/docs/index.html">API Documentation</a>
+    <a href="http://kinocms.zzz.com.ua/web/docs/" target="_blank">API Documentation</a>
 </p>
